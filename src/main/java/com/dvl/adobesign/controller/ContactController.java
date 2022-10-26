@@ -1,5 +1,6 @@
 package com.dvl.adobesign.controller;
 
+import com.dvl.adobesign.config.AdobeSignConfig;
 import com.dvl.adobesign.model.Contract;
 import com.dvl.adobesign.service.ContractService;
 import org.springframework.core.io.InputStreamResource;
@@ -22,13 +23,17 @@ public class ContactController {
 
     private final ContractService contractService;
 
-    public ContactController(ContractService contractService) {
+    private final AdobeSignConfig adobeSignConfig;
+
+    public ContactController(ContractService contractService, AdobeSignConfig adobeSignConfig) {
         this.contractService = contractService;
+        this.adobeSignConfig = adobeSignConfig;
     }
 
     @GetMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("contracts", contractService.getContracts());
+        model.addAttribute("message", adobeSignConfig.getMessage());
         return "index";
     }
 

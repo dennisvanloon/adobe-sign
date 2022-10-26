@@ -28,5 +28,6 @@
                 </#foreach>
             </table>
         </div>
+        <div>Message from the config: ${message}</div>
     </body>
 </html>

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: adobe-sign
+  cloud:
+    kubernetes:
+#      enabled: false
+      config:
+        name: adobe-sign-config
+        namespace: default
+        sources:
+          - name adobe-sign-configmap

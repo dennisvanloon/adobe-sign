@@ -24,10 +24,16 @@ public class Contract {
     @Lob
     private byte[] data;
 
-    public Contract(String fileName, String fileType, byte[] data) {
+    private String signerOne;
+
+    private String signerTwo;
+
+    public Contract(String fileName, String fileType, byte[] data, String signerOne, String signerTwo) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
+        this.signerOne = signerOne;
+        this.signerTwo = signerTwo;
     }
 
     public Contract() {

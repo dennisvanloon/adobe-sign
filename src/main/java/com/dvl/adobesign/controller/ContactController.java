@@ -38,8 +38,8 @@ public class ContactController {
     }
 
     @PostMapping(value = "/contract", consumes = "multipart/form-data")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-        contractService.storeContract(file);
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("signerOne") String signerOne, @RequestParam("signerTwo") String signerTwo) {
+        contractService.storeContract(file, signerOne, signerTwo);
         return "redirect:/";
     }
 

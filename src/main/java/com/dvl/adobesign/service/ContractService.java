@@ -3,11 +3,12 @@ package com.dvl.adobesign.service;
 import com.dvl.adobesign.model.Contract;
 import com.dvl.adobesign.repository.ContractRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.util.StringUtils.cleanPath;
 
 @Service
 public class ContractService {
@@ -18,15 +19,11 @@ public class ContractService {
         this.contractRepository = contractRepository;
     }
 
-    public Contract storeContract(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public Contract storeContract(MultipartFile file, String signerOne, String signerTwo) {
+        String fileName = cleanPath(file.getOriginalFilename());
 
         try {
-            if(fileName.contains("..")) {
-                throw new IllegalStateException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            Contract contract = new Contract(fileName, file.getContentType(), file.getBytes());
+            Contract contract = new Contract(fileName, file.getContentType(), file.getBytes(), signerOne, signerTwo);
             return contractRepository.save(contract);
         } catch (IOException ex) {
             throw new IllegalStateException("Could not store file " + fileName + ". Please try again!", ex);
